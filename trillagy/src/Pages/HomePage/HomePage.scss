@@ -1,0 +1,278 @@
+// src/Pages/HomePage/HomePage.scss
+.homepage {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    margin-top: 80px; // Height of navbar
+  
+    .hero-section {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+      padding: 4rem 2rem;
+      width: 100%;
+  
+      .hero-content {
+        max-width: 1200px;
+        width: 100%;
+        margin: 0 auto;
+        text-align: center;
+      }
+  
+      .hero-title {
+        font-size: 4rem;
+        font-weight: 700;
+        margin-bottom: 1.5rem;
+        line-height: 1.2;
+        color: #1e293b;
+  
+        .highlight {
+          color: #2563eb;
+          position: relative;
+          
+          &::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: #2563eb;
+            border-radius: 2px;
+            opacity: 0.3;
+          }
+        }
+      }
+  
+      .hero-subtitle {
+        font-size: 1.5rem;
+        color: #64748b;
+        margin-bottom: 4rem;
+        max-width: 800px;
+        margin-left: auto;
+        margin-right: auto;
+      }
+  
+      .search-container {
+        max-width: 800px;
+        margin: 0 auto;
+  
+        .search-type-toggle {
+          display: flex;
+          justify-content: center;
+          gap: 1rem;
+          margin-bottom: 1.5rem;
+  
+          .toggle-btn {
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 0.75rem;
+            background: white;
+            color: #64748b;
+            font-size: 1.1rem;
+            font-weight: 500;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  
+            &:hover {
+              transform: translateY(-2px);
+              box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            }
+  
+            &.active {
+              background: #2563eb;
+              color: white;
+            }
+          }
+        }
+  
+        .search-box {
+          background: white;
+          padding: 0.75rem;
+          border-radius: 1rem;
+          display: flex;
+          align-items: center;
+          gap: 1rem;
+          box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  
+          .search-icon {
+            margin-left: 1rem;
+            color: #64748b;
+            font-size: 1.25rem;
+          }
+  
+          input {
+            flex: 1;
+            padding: 1rem;
+            border: none;
+            outline: none;
+            font-size: 1.1rem;
+            color: #1e293b;
+  
+            &::placeholder {
+              color: #94a3b8;
+            }
+          }
+  
+          .search-btn {
+            background: #2563eb;
+            color: white;
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 0.75rem;
+            font-size: 1.1rem;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+  
+            &:hover {
+              background: #1d4ed8;
+            }
+          }
+        }
+      }
+    }
+    .features {
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        background: white;
+        padding: 6rem 2rem;
+        width: 100%;
+    
+        .features-content {
+          max-width: 1200px;
+          width: 100%;
+          margin: 0 auto;
+          text-align: center
+        h2 {
+          font-size: 2.5rem;
+          color: #1e293b;
+          margin-bottom: 3rem;
+          font-weight: 700;
+        }
+  
+        .feature-cards {
+          display: grid;
+          grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+          gap: 2rem;
+          padding: 1rem;
+  
+          .feature-card {
+            background: #f8fafc;
+            padding: 2.5rem 2rem;
+            border-radius: 1rem;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  
+            &:hover {
+              transform: translateY(-5px);
+              box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            }
+  
+            .icon {
+              font-size: 3rem;
+              margin-bottom: 1.5rem;
+            }
+  
+            h3 {
+              font-size: 1.5rem;
+              color: #1e293b;
+              margin-bottom: 1rem;
+              font-weight: 600;
+            }
+  
+            p {
+              color: #64748b;
+              font-size: 1.1rem;
+              line-height: 1.6;
+            }
+          }
+        }
+      }
+    }
+  }
+  
+  @media (max-width: 1024px) {
+    .homepage {
+      .hero-section {
+        .hero-title {
+          font-size: 3.5rem;
+        }
+      }
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .homepage {
+      .hero-section {
+        padding: 100px 1rem 3rem;
+  
+        .hero-title {
+          font-size: 2.5rem;
+        }
+  
+        .hero-subtitle {
+          font-size: 1.2rem;
+          margin-bottom: 3rem;
+        }
+  
+        .search-container {
+          .search-box {
+            flex-direction: column;
+            padding: 1rem;
+  
+            input {
+              width: 100%;
+              text-align: center;
+            }
+  
+            .search-btn {
+              width: 100%;
+              justify-content: center;
+            }
+          }
+        }
+      }
+  
+      .features {
+        padding: 4rem 1rem;
+  
+        .features-content {
+          h2 {
+            font-size: 2rem;
+          }
+        }
+      }
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .homepage {
+      .hero-section {
+        .hero-title {
+          font-size: 2rem;
+        }
+  
+        .search-container {
+          .search-type-toggle {
+            flex-direction: column;
+  
+            .toggle-btn {
+              width: 100%;
+              justify-content: center;
+            }
+          }
+        }
+      }
+    }
+  }
