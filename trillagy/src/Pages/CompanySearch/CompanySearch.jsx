@@ -1,9 +1,8 @@
 // src/Pages/PeopleSearch/PeopleSearch.jsx
 import React, { useState } from "react";
 import { FaSearch, FaFilter, FaDownload } from "react-icons/fa";
-import "./PeopleSearch.scss";
 
-const PeopleSearch = () => {
+const CompanySearch = () => {
   const [results, setResults] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -164,7 +163,7 @@ const PeopleSearch = () => {
               <table className="results-table">
                 <thead>
                   <tr>
-                    <th>Name</th>
+                    <th>Company</th>
                     <th>Title</th>
                     <th>Company</th>
                     <th>Email</th>
@@ -205,4 +204,4 @@ const PeopleSearch = () => {
   );
 };
 
-export default PeopleSearch;
+export default CompanySearch;

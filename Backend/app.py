@@ -1,8 +1,13 @@
 # app.py
-
+import os
+from dotenv import load_dotenv
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 import requests
+
+load_dotenv()
+
+api_key = os.getenv("API_KEY")
 
 app = Flask(__name__)
 CORS(app)
@@ -19,7 +24,7 @@ def search_people():
             "accept": "application/json",
             "Cache-Control": "no-cache",
             "Content-Type": "application/json",
-            "x-api-key": API_KEY
+            "x-api-key": api_key
         }
            
         response = requests.post(url, headers=headers, json=request.json)
@@ -43,7 +48,7 @@ def search_companies():
             "accept": "application/json",
             "Cache-Control": "no-cache",
             "Content-Type": "application/json",
-            "x-api-key": API_KEY
+            "x-api-key": api_key
         }
 
         response = requests.post(url, headers=headers, json=request.json)
@@ -55,3 +60,5 @@ def search_companies():
 
 if __name__ == "__main__":
     app.run(debug=True, port=3001) 
+
+    
