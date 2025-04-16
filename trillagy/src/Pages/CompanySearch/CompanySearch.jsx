@@ -9,59 +9,60 @@ const CompanySearch = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [showFilters, setShowFilters] = useState(false);
   const [filters, setFilters] = useState({
-    titles: [],
-    departments: [],
-    industries: [],
-    companySize: [],
-    emailVerified: false,
+    employee_range: [],
+    location: [],
+    industry: [],
   });
 
   // Filter options
   const filterOptions = {
-    titles: [
-      "CEO",
-      "CTO",
-      "CFO",
-      "VP",
-      "Director",
-      "Manager",
-      "HR",
-      "Recruitment",
-    ],
-    departments: ["Engineering", "Sales", "Marketing", "Finance"],
-    industries: ["Technology", "Healthcare", "Finance", "Retail"],
-    companySize: ["1-10", "11-50", "51-200", "201-500", "500+"],
+    employee_range: ["1-250"],
+    location: ["canada"],
+    industry: ["health", "mininig", "fintech", "IT", "consulting"],
+    revenue: {
+      min: 1000,
+      max: 1000000,
+    },
   };
 
-  const searchPeople = async () => {
+  const searchCompany = async () => {
     try {
       setLoading(true);
       setError(null);
 
-      const response = await fetch("http://localhost:3001/api/search-people", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          person_keywords: searchTerm ? [searchTerm] : [],
-          person_titles: filters.titles,
-          person_departments: filters.departments,
-          organization_industries: filters.industries,
-          organization_employee_counts: filters.companySize,
-          verified_email: filters.emailVerified,
-          page: 1,
-          show_cse: true,
-          show_starter_email: true,
-        }),
-      });
+      const response = await fetch(
+        "http://localhost:3001/api/search-companies",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            // person_keywords: searchTerm ? [searchTerm] : [],
+            // organization_num_employees_ranges: filters.employee_range,
+            // organization_locations: filters.location,
+            // q_organization_keyword_tags1: filters.industry,
+
+            // per_page: 50,
+            // show_cse: true,
+            // show_starter_email: true,
+            organization_num_employees_ranges: filterOptions.employee_range,
+            organization_locations: filterOptions.location,
+            per_page: 50,
+            q_organization_keyword_tags1: filterOptions.industry,
+            revenue_range: filterOptions.revenue,
+          }),
+        }
+      );
 
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
 
       const data = await response.json();
-      setResults(data.people || []);
+      //   console.log("Data", data);
+      setResults(data.organizations || []);
+      console.log("organizations", results);
     } catch (err) {
       setError(err.message);
       console.error("Search error:", err);
@@ -91,7 +92,7 @@ const CompanySearch = () => {
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
             placeholder="Search by name, title, or company..."
-            onKeyPress={(e) => e.key === "Enter" && searchPeople()}
+            onKeyPress={(e) => e.key === "Enter" && searchCompany()}
           />
           <button
             className={`filter-btn ${showFilters ? "active" : ""}`}
@@ -102,7 +103,7 @@ const CompanySearch = () => {
         </div>
         <button
           className="search-btn"
-          onClick={searchPeople}
+          onClick={searchCompany}
           disabled={loading}
         >
           {loading ? "Searching..." : "Search"}
@@ -163,21 +164,26 @@ const CompanySearch = () => {
               <table className="results-table">
                 <thead>
                   <tr>
-                    <th>Company</th>
-                    <th>Title</th>
-                    <th>Company</th>
-                    <th>Email</th>
-                    <th>Location</th>
-                    <th>LinkedIn</th>
+                    <th>Id</th>
+                    <th>Company name</th>
+                    <th>Website</th>
+                    <th>Linked</th>
+                    <th>Phone number</th>
+                    <th>Founded</th>
+                    <th>Revenue</th>
                   </tr>
                 </thead>
                 <tbody>
-                  {results.map((person, index) => (
+                  {results.map((company, index) => (
                     <tr key={index}>
-                      <td>{person.name}</td>
-                      <td>{person.title}</td>
-                      <td>{person.organization?.name}</td>
-                      <td>{person.email || "N/A"}</td>
+                      <td>{company.id}</td>
+                      <td>{company.name}</td>
+                      <td>{company.website_url}</td>
+                      <td>{company.linkedin_url}</td>
+                      <td>{company.phone}</td>
+                      <td>{company.founded_year}</td>
+                      <td>{company.organization_revenue}</td>
+                      {/* <td>{person.email || "N/A"}</td>
                       <td>{person.location || "N/A"}</td>
                       <td>
                         {person.linkedin_url ? (
@@ -191,7 +197,7 @@ const CompanySearch = () => {
                         ) : (
                           "N/A"
                         )}
-                      </td>
+                      </td> */}
                     </tr>
                   ))}
                 </tbody>

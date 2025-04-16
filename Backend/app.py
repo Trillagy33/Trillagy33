@@ -52,6 +52,7 @@ def search_companies():
         }
 
         response = requests.post(url, headers=headers, json=request.json)
+        print("response is", response)
         return jsonify(response.json()), response.status_code
 
     except Exception as e:
